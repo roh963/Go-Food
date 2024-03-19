@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 
 const mongdb = async () => {
     try {
-        await mongoose.connect(process.env.Db, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        await mongoose.connect(process.env.Db);
         const collection = await mongoose.connection.db.collection("food_items");
         const data = await collection.find({}).toArray();
         console.log("Connected to MongoDB Atlas database");

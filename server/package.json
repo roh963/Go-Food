@@ -4,7 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "start": {
+      "patterns": ["src/**/*.js"],
+      "extensions": "js",
+      "runOnChangeOnly": true
+    }
   },
   "author": "",
   "license": "ISC",
@@ -12,7 +21,9 @@
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "express-validator": "^7.0.1",
-    "mongoose": "^8.2.2",
-    "nodemon": "^3.1.0"
+    "mongoose": "^8.2.2"
+  },
+  "devDependencies": {
+    "npm-watch": "^0.11.0"
   }
 }

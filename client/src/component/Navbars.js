@@ -18,6 +18,10 @@ export default function Navbars() {
             <Link className="nav-link semibold-text" style={{ fontWeight: '600', color: '#e1faf9' }} to="/login">Login</Link>
           </li>
          
+          <li className="nav-item">
+            <Link className="nav-link semibold-text" style={{ fontWeight: '600', color: '#e1faf9' }} to="/createuser">SignUp</Link>
+          </li>
+         
         </ul>
       </div>
     </nav>

@@ -11,7 +11,7 @@ export default function Cards() {
         </p>
         <div className="container w-100">
           <select
-            class="m-2 h-100 rounded "
+            className="m-2 h-100 rounded "
             aria-label="Default select example"
           >
             {Array.from(Array(6), (e, i) => {

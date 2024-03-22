@@ -11,12 +11,12 @@ const Search = () => {
         transform: "translateX(-50%)"
     }
   return (
-    <div style={styles}>
-        <Form inline>
-      <FormControl type="text"  placeholder="Search" className="mr-sm-2" />
+    < >
+        <Form style={styles}>
+      <FormControl className="mr-sm-2" type="text"  placeholder="Search"  />
       <Button variant="outline-success">Search</Button>
     </Form>
-    </div>
+    </>
   );
 };
 

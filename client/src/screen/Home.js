@@ -8,7 +8,8 @@ import FormControl from "react-bootstrap/FormControl";
 export default function Home() {
   const [search, setsearch] = useState("");
   const styles = {
-    height: "500px",
+    height: "800px",
+    width:"500px",
     position: "relative",
   };
   const [index, setIndex] = useState(0);

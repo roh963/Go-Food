@@ -4,11 +4,11 @@ export default function Cards(props) {
   let options = props.options;
   let priceOptions = Object.keys(options)
   return (
-    <div className="col-sm-6 col-md-4 col-lg-3 m-5 ">
-      <div className="card m-2" style={{ width: "18rem" }}>
+    <div className="col-sm-6 col-md-4 col-lg-3 m-3  ">
+      <div className="card m-2" style={{ width: "18rem",height:"500px" }}>
         {/* Check if imgSrc is valid */}
         {props.imgSrc ? (
-          <img src={props.imgSrc} className="card-img-top" alt="Food" />
+          <img src={props.imgSrc}  style={{ width: "18rem",height:"300px",objectFit:"fill" }} className="card-img-top" alt="Food" />
         ) : (
           <p>No image available</p>
         )}

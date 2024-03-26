@@ -3,7 +3,7 @@ import { Navbar, Container } from 'react-bootstrap';
 export default function Footers() {
   return (
     <>
-    <Navbar fixed="bottom" bg="dark" variant="dark">
+    <Navbar className='mt-5' fixed="bottom" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand href="#home">
           &copy; 2024  Go Food

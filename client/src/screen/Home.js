@@ -128,9 +128,8 @@ export default function Home() {
                         className="col-12 col-md-6 col-lg-3"
                       >
                         <Cards
-                          foodName={filterItems.name}
+                          foodItems={filterItems}
                           options={filterItems.options[0]}
-                          imgSrc={filterItems.img}
                         />
                       </div>
                     ))}
@@ -138,7 +137,7 @@ export default function Home() {
             </div>
           ))}
       </div>
-      <Footers />
+      <Footers  />
     </div>
   );
 }

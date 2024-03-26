@@ -6,10 +6,13 @@ import SignUp from './screen/SignUp.js';
 import "../node_modules/bootstrap/dist/css/bootstrap-grid.min.css"
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle"
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+import { CardProvider } from './component/ContextReducer.js';
 function App() {
   
   return (
-      <Router>
+     
+      <CardProvider>
+   <Router>
         <div>
         <Routes>
             <Route exact path="/" element={<Home/>} />
@@ -20,6 +23,7 @@ function App() {
         </div>
           
       </Router>
+</CardProvider>
   );
 }
 

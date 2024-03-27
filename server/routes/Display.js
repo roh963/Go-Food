@@ -1,12 +1,17 @@
- const express = require('express');
- const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 
- router.post('/foodData',(req,res)=>{
+// Endpoint to get food data
+router.post('/foodData', (req, res) => {
     try {
-        console.log(global.food_items,global.food_Category);
-        res.send([global.food_items,global.food_Category]);
+        // Assuming global variables food_items and food_Category are defined elsewhere
+        const { food_items, food_Category } = global;
+        console.log(food_items, food_Category);
+        res.send([food_items, food_Category]);
     } catch (error) {
-       console.error(error.message); 
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
     }
- })
- module.exports = router;
+});
+
+module.exports = router;

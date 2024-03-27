@@ -12,6 +12,28 @@ export default function Cards(props) {
   const [size, setSize] = useState("");
   let finalPrice = qty*parseInt(options[size]);
   const handleaddcart = async () => {
+    let food = []
+    for (const item of state) {
+      if (item.id === props.foodItems._id) {
+        food = item;
+
+        break;
+      }
+    }
+    console.log(food)
+    console.log(new Date())
+    if (food !== 0) {
+      if (food.size === size) {
+        await dispatch({ type: "UPDATE", id: props.foodItems._id, price: finalPrice, qty: qty })
+        return
+      }
+      else if (food.size !== size) {
+        await dispatch({ type: "ADD", id: props.foodItems._id, name: props.foodItems.name, price: finalPrice, qty: qty, size: size,img: props.foodItems.img })
+        console.log("Size different so simply ADD one more to the list")
+        return
+      }
+      return
+    }
     await dispatch({
       type: "ADD",
       id: props.foodItems._id,
@@ -29,7 +51,7 @@ export default function Cards(props) {
   return (
     <div className="col-sm-6 col-md-4 col-lg-3 m-5  ">
       <div className="card m-2" style={{ width: "18rem", height: "550px" }}>
-        {/* Check if foodItem.img is valid */}
+        {/* Check if props.foodItems.img is valid */}
         {props.foodItems.img ? (
           <img
             src={props.foodItems.img}

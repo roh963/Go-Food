@@ -12,6 +12,7 @@ const fport = process.env.fPort;
 const mongodb = require("./db");
 const createuser = require("./routes/createuser")
 const displayuser = require("./routes/Display")
+const orderuser = require("./routes/Order")
 mongodb();
 app.use((req,res,next)=>{
   res.setHeader("Access-Control-Allow-Origin",fport),
@@ -25,6 +26,7 @@ app.use((req,res,next)=>{
 app.use(express.json());
 app.use("/api",createuser)
 app.use("/api",displayuser)
+app.use("/api",orderuser)
 
 app.get('/', (req, res) => {
   res.send('hello world')

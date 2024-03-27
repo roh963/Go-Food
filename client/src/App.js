@@ -7,6 +7,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap-grid.min.css"
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle"
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
 import { CardProvider } from './component/ContextReducer.js';
+import MyOrder from './screen/MyOrder.js';
 function App() {
   
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route exact path="/" element={<Home/>} />
             <Route exact path="/login" element={<Login/>} />
             <Route exact path="/createuser" element={<SignUp/>} />
+            <Route exact path="/myorder" element={<MyOrder/>} />
     
           </Routes>
         </div>

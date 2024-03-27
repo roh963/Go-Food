@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { Badge } from "react-bootstrap";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Link,useNavigate } from "react-router-dom";
+import Modal from "../Model";
+import Cart from "../screen/Cart";
 export default function Navbars() {
+  const [cartView, setcartView] = useState(false);
   const navigation = useNavigate();
   const handlelogout = ()=>{
     localStorage.removeItem("authToken");
@@ -35,7 +40,7 @@ export default function Navbars() {
               <Link
                 className="nav-link semibold-text"
                 style={{ fontWeight: "600", color: "#e1faf9" }}
-                to="/"
+                to="/myorder"
               >
                 My Order
               </Link>
@@ -67,17 +72,21 @@ export default function Navbars() {
         </div>: <div className="d-flex  mx-1 " >
           
           <Link
-            className="btn btn-success text-white semibold-text mx-1 "
+            className="btn bg-white  text-success semibold-text mx-2 "
             style={{ fontWeight: "600", color: "#e1faf9" }}
-            to="/login"
+            onClick={()=>setcartView(true)}
+         
           >
-            My Cart
+             <Badge color="secondary" >
+                  <ShoppingCartIcon />
+             </Badge>
+             Cart
           </Link>
-      
-
+          {cartView ? <Modal onClose={() => setcartView(false)}><Cart></Cart></Modal> : ""}
+              
        
           <div
-            className="btn btn-success text-danger  mx-1 "
+            className="btn btn-success text-white bold-text  mx-1 "
             style={{ fontWeight: "600", color: "#e1faf9" }}
            onClick={handlelogout}
           >

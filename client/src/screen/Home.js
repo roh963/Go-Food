@@ -9,7 +9,7 @@ export default function Home() {
   const [search, setsearch] = useState("");
   const styles = {
     height: "800px",
-    width:"500px",
+    width: "500px",
     position: "relative",
   };
   const [index, setIndex] = useState(0);
@@ -137,7 +137,7 @@ export default function Home() {
             </div>
           ))}
       </div>
-      <Footers  />
+      <Footers />
     </div>
   );
 }

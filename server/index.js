@@ -1,9 +1,9 @@
+require('dotenv').config();
 global.foodData = require('./db')(function call(err, data, CatData) {
   if(err) console.log(err);
   global.foodData = data;
   global.foodCategory = CatData;
 })
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const express = require('express')
 const app = express()

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import foodVideo from '../images/pexels-ron-lach-8879537 (1080p)(1).mp4'; // Import your video file here
+import foodVideo from '../images/pexels-ron-lach-8879537 (1080p)(1).mp4';
+import { FaUser, FaLock, FaEnvelope, FaSignInAlt, FaUserPlus, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,96 +11,186 @@ export default function Login() {
     email: "",
     geolocation: ""
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const videoRef = useRef(null);
 
   useEffect(() => {
     const video = videoRef.current;
     video.play().catch(error => {
-      // Auto-play was prevented
-      // You can handle this situation here
       console.error('Auto-play was prevented:', error);
     });
   }, []);
 
   const handsubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/loginuser`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: credentioal.email,
-        password: credentioal.password
-      })
-    });
-    const json = await response.json();
-    console.log(json);
+    setIsLoading(true);
+    setError("");
 
-    if (!json.success) {
-      alert("Enter valid credentials");
-    }
-    if (json.success) {
-      localStorage.setItem("userEmail", credentioal.email);
-      localStorage.setItem("authToken", json.authToken);
-      console.log(localStorage.getItem("authToken"));
-      navigate("/");
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/loginuser`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: credentioal.email,
+          password: credentioal.password
+        })
+      });
+      
+      const json = await response.json();
+      console.log(json);
+
+      if (!json.success) {
+        setError("Invalid email or password. Please try again.");
+      } else {
+        localStorage.setItem("userEmail", credentioal.email);
+        localStorage.setItem("authToken", json.authToken);
+        console.log(localStorage.getItem("authToken"));
+        navigate("/");
+      }
+    } catch (error) {
+      setError("Network error. Please check your connection and try again.");
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const onChange = (e) => {
-    setcredentional({ ...credentioal, [e.target.name]: e.target.value })
-  };
-
-  const containerStyles = {
-    height: "500px",
-    width: "300px",
-    margin: "0 auto", // Centering the container horizontally
-    position: 'relative',
-    overflow: 'hidden'
-  };
-
-  const videoStyles = {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    zIndex: '-1'
-  };
-
-  const headerStyles = {
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
-    color: "white",
-    textAlign: "center",
-    padding: "8px",
-    borderRadius: "10px 10px 0 0", // Rounded corners only on top
-    marginBottom: "20px"
+    setcredentional({ ...credentioal, [e.target.name]: e.target.value });
+    if (error) setError(""); // Clear error when user starts typing
   };
 
   return (
-    <div>
-      <video ref={videoRef} style={videoStyles} autoPlay loop muted>
+    <div className="login-page position-relative min-vh-100 d-flex align-items-center justify-content-center">
+      {/* Background Video */}
+      <video 
+        ref={videoRef} 
+        className="position-absolute w-100 h-100" 
+        style={{ objectFit: 'cover', zIndex: '-1' }}
+        autoPlay 
+        loop 
+        muted
+      >
         <source src={foodVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className='container mt-5' style={containerStyles}>
-        <header className='m-1' style={headerStyles}>Login Yourself</header>
-        <div className='card'>
-          <div className='card-body'>
-            <form onSubmit={handsubmit}>
-              <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" name='email' value={credentioal.email} onChange={onChange} aria-describedby="emailHelp" />
-                <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+      
+      {/* Overlay */}
+      <div className="position-absolute w-100 h-100" style={{ 
+        background: 'linear-gradient(135deg, rgba(255, 107, 53, 0.8) 0%, rgba(255, 71, 87, 0.8) 100%)',
+        zIndex: '0'
+      }}></div>
+
+      {/* Login Form */}
+      <div className="container position-relative" style={{ zIndex: '1' }}>
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-6 col-lg-4">
+            <div className="form-modern bounce-in">
+              {/* Header */}
+              <div className="text-center mb-4">
+                <div className="mb-3">
+                  <div className="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle" 
+                       style={{ width: '70px', height: '70px' }}>
+                    <FaSignInAlt size={28} className="text-white" />
+                  </div>
+                </div>
+                <h2 className="text-gradient mb-2 fw-bold">Welcome Back!</h2>
+                <p className="text-muted fs-5">Sign in to your account to continue</p>
               </div>
-              <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" name='password' value={credentioal.password} onChange={onChange} />
-              </div>
-              <button type="submit" className="btn btn-success">Submit</button>
-              <Link to="/createuser" className='m-3 btn btn-danger' >Create a user</Link>
-            </form>
+
+              {/* Error Message */}
+              {error && (
+                <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                  <FaUser className="me-2" />
+                  {error}
+                  <button type="button" className="btn-close" onClick={() => setError("")}></button>
+                </div>
+              )}
+
+              {/* Login Form */}
+              <form onSubmit={handsubmit}>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label fw-bold">
+                    <FaEnvelope className="me-2" />
+                    Email Address
+                  </label>
+                  <input 
+                    type="email" 
+                    className="form-control form-control-modern" 
+                    id="email" 
+                    name='email' 
+                    value={credentioal.email} 
+                    onChange={onChange} 
+                    required
+                    placeholder="Enter your email"
+                  />
+                </div>
+                
+                <div className="mb-4">
+                  <label htmlFor="password" className="form-label fw-bold">
+                    <FaLock className="me-2" />
+                    Password
+                  </label>
+                  <div className="position-relative">
+                    <input 
+                      type={showPassword ? "text" : "password"}
+                      className="form-control form-control-modern" 
+                      id="password" 
+                      name='password' 
+                      value={credentioal.password} 
+                      onChange={onChange} 
+                      required
+                      placeholder="Enter your password"
+                    />
+                    <button
+                      type="button"
+                      className="btn position-absolute end-0 top-50 translate-middle-y me-2"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{ border: 'none', background: 'transparent' }}
+                    >
+                      {showPassword ? <FaEyeSlash size={16} /> : <FaEye size={16} />}
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="d-grid gap-2 mb-3">
+                  <button 
+                    type="submit" 
+                    className={`btn btn-modern btn-primary ${isLoading ? 'disabled' : ''}`}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <div className="spinner-border spinner-border-sm me-2" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                        Signing In...
+                      </>
+                    ) : (
+                      <>
+                        <FaSignInAlt className="me-2" />
+                        Sign In
+                      </>
+                    )}
+                  </button>
+                </div>
+                
+                <div className="text-center">
+                  <p className="mb-0 text-muted fs-6">
+                    Don't have an account?{' '}
+                    <Link to="/createuser" className="text-decoration-none fw-bold text-primary">
+                      <FaUserPlus className="me-1" />
+                      Sign Up
+                    </Link>
+                  </p>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

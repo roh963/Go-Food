@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Delete from '@material-ui/icons/Delete';
 import { useCart, useDispatchcart } from '../component/ContextReducer';
 import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaTrash, FaCreditCard, FaArrowLeft, FaCheckCircle } from 'react-icons/fa';

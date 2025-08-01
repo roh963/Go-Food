@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Badge } from "react-bootstrap";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ShoppingCartIcon from '@mui/icons-material/Shop2';
 import { Link, useNavigate } from "react-router-dom";
 import Modal from "../Model";
 import Cart from "../screen/Cart";
